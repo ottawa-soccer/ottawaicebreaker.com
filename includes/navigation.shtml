@@ -1,0 +1,32 @@
+<div id="nav">
+  <ul id="navmenu">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about_us.html">About us</a></li>
+  <li><a href="information.html">Information</a></li>
+ <!--<li><a href="gear.html">Icebreaker gear</a></li>-->
+  <li><a href="forms.html">Forms</a></li>
+  <li><a href="accomodations.html">Accomodations</a></li>
+  <li><a href="grules.html">Girls</a>
+    <ul>
+      <li><a href="grules.html">Rules</a></li>
+      <li><a href="gregister.html">Registered</a></li>
+      <li><a href="gschedules.html">Schedules</a></li>
+      <li><a href="gresults.html">Results</a></li>
+    </ul>
+  </li>
+  <li><a href="brules.html">Boys</a>
+    <ul>
+      <li><a href="brules.html">Rules</a> </li>   
+      <li><a href="bregister.html">Registered</a></li>
+      <li><a href="bschedules.html">Schedules</a></li>
+      <li><a href="bresults.html">Results</a></li>
+    </ul>
+  </li>
+   <li><a href="fields.html">Fields</a></li>    
+  <li><a href="awards.html">Awards</a></li> 
+    
+  <li><a href="vendors.html">Vendor information</a></li>
+  <li><a href="contact_us.html">Contact us</a></li>         
+</ul>
+<!--<div><h3 class="indent"><a href="https://www.facebook.com/Ottawa-Icebreaker-Soccer-Tournament-1242702315783351/">Follow us on <img src="images/facebook_icon.png" /></a></h3></div>-->
+      </div>

@@ -1,0 +1,2261 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<style type="text/css">
+
+#dropmenudiv{
+position:absolute;
+border:1px solid black;
+font:bold 12px Verdana;
+line-height:18px;
+z-index:100;
+}
+
+DIV.Section1 {
+	page: Section1
+}
+H2 {
+	FONT-FAMILY: "Times New Roman"; FONT-SIZE: 12pt; TEXT-ALIGN: center; margin-left:0in; margin-right:0in; margin-top:0in; margin-bottom:0pt
+}
+H1 {
+	FONT-FAMILY: "Times New Roman"; FONT-SIZE: 12pt; margin-left:0in; margin-right:0in; margin-top:0in; margin-bottom:0pt
+}
+p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0cm; margin-right:0cm; margin-top:0cm}
+</style>
+
+
+<script type="text/javascript">
+
+/***********************************************
+* AnyLink Drop Down Menu- © Dynamic Drive (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+//Contents for menu 1
+var menu1=new Array()
+menu1[0]='<a href="welcome.htm">Welcome</a><br>'
+menu1[1]='<a href="rules.htm">Rules</a><br>'
+menu1[2]='<a href="fields.htm">Fields</a><br>'
+
+//Contents for menu 2
+var menu2=new Array()
+menu2[0]='<a href="registered-girls.htm">Registered Teams</a><br>'
+menu2[1]='<a href="schedule-girls.htm">Schedule</a><br>'
+menu2[2]='<a href="results-girls.htm">Results</a><br>'
+
+//Contents for menu 3
+var menu3=new Array()
+menu3[0]='<a href="registered-boys_1.htm">Registered Teams</a><br>'
+menu3[1]='<a href="schedule-boys.htm">Schedule</a><br>'
+menu3[2]='<a href="results-boys.htm">Results</a><br>'
+
+//Contents for menu 4
+var menu4=new Array()
+menu4[0]='<a href=""></a><br>'
+menu4[1]='<a href=""></a><br>'
+menu4[2]='<a href=""></a><br>'
+
+//Contents for menu 5
+var menu5=new Array()
+menu5[0]='<a href="history-girls.htm">Girls History</a><br>'
+menu5[1]='<a href="history-boys.htm">Boys History</a><br>'
+
+//Contents for menu 6
+var menu6=new Array()
+menu6[0]='<a href="registration.htm">Registration</a><br>'
+menu6[1]='<a href="game-sheet.htm">Game Sheet</a><br>'
+menu6[2]='<a href="discipline.htm">Discpline Sheet</a><br>'
+
+//Contents for menu 7
+var menu7=new Array()
+menu7[0]='<a href="contact-girls.htm">Girls Administrative</a><br>'
+menu7[1]='<a href="contact-boys.htm">Boys Administrative</a><br>'
+		
+var menuwidth='50px' //default menu width
+var menubgcolor='lightblue'  //menu bgcolor
+var disappeardelay=350  //menu disappear speed onMouseout (in miliseconds)
+var hidemenu_onclick="yes" //hide menu when user clicks within menu?
+
+/////No further editting needed
+
+var ie4=document.all
+var ns6=document.getElementById&&!document.all
+
+if (ie4||ns6)
+document.write('<div id="dropmenudiv" style="visibility:hidden;width:'+menuwidth+';background-color:'+menubgcolor+'" onMouseover="clearhidemenu()" onMouseout="dynamichide(event)"></div>')
+
+function getposOffset(what, offsettype){
+var totaloffset=(offsettype=="left")? what.offsetLeft : what.offsetTop;
+var parentEl=what.offsetParent;
+while (parentEl!=null){
+totaloffset=(offsettype=="left")? totaloffset+parentEl.offsetLeft : totaloffset+parentEl.offsetTop;
+parentEl=parentEl.offsetParent;
+}
+return totaloffset;
+}
+
+
+function showhide(obj, e, visible, hidden, menuwidth){
+if (ie4||ns6)
+dropmenuobj.style.left=dropmenuobj.style.top=-500
+if (menuwidth!=""){
+dropmenuobj.widthobj=dropmenuobj.style
+dropmenuobj.widthobj.width=menuwidth
+}
+if (e.type=="click" && obj.visibility==hidden || e.type=="mouseover")
+obj.visibility=visible
+else if (e.type=="click")
+obj.visibility=hidden
+}
+
+function iecompattest(){
+return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+}
+
+function clearbrowseredge(obj, whichedge){
+var edgeoffset=0
+if (whichedge=="rightedge"){
+var windowedge=ie4 && !window.opera? iecompattest().scrollLeft+iecompattest().clientWidth-15 : window.pageXOffset+window.innerWidth-15
+dropmenuobj.contentmeasure=dropmenuobj.offsetWidth
+if (windowedge-dropmenuobj.x < dropmenuobj.contentmeasure)
+edgeoffset=dropmenuobj.contentmeasure-obj.offsetWidth
+}
+else{
+var windowedge=ie4 && !window.opera? iecompattest().scrollTop+iecompattest().clientHeight-15 : window.pageYOffset+window.innerHeight-18
+dropmenuobj.contentmeasure=dropmenuobj.offsetHeight
+if (windowedge-dropmenuobj.y < dropmenuobj.contentmeasure)
+edgeoffset=dropmenuobj.contentmeasure+obj.offsetHeight
+}
+return edgeoffset
+}
+
+function populatemenu(what){
+if (ie4||ns6)
+dropmenuobj.innerHTML=what.join("")
+}
+
+
+function dropdownmenu(obj, e, menucontents, menuwidth){
+if (window.event) event.cancelBubble=true
+else if (e.stopPropagation) e.stopPropagation()
+clearhidemenu()
+dropmenuobj=document.getElementById? document.getElementById("dropmenudiv") : dropmenudiv
+populatemenu(menucontents)
+
+if (ie4||ns6){
+showhide(dropmenuobj.style, e, "visible", "hidden", menuwidth)
+dropmenuobj.x=getposOffset(obj, "left")
+dropmenuobj.y=getposOffset(obj, "top")
+dropmenuobj.style.left=dropmenuobj.x-clearbrowseredge(obj, "rightedge")+"px"
+dropmenuobj.style.top=dropmenuobj.y-clearbrowseredge(obj, "bottomedge")+obj.offsetHeight+"px"
+}
+
+return clickreturnvalue()
+}
+
+function clickreturnvalue(){
+if (ie4||ns6) return false
+else return true
+}
+
+function contains_ns6(a, b) {
+while (b.parentNode)
+if ((b = b.parentNode) == a)
+return true;
+return false;
+}
+
+function dynamichide(e){
+if (ie4&&!dropmenuobj.contains(e.toElement))
+delayhidemenu()
+else if (ns6&&e.currentTarget!= e.relatedTarget&& !contains_ns6(e.currentTarget, e.relatedTarget))
+delayhidemenu()
+}
+
+function hidemenu(e){
+if (typeof dropmenuobj!="undefined"){
+if (ie4||ns6)
+dropmenuobj.style.visibility="hidden"
+}
+}
+
+function delayhidemenu(){
+if (ie4||ns6)
+delayhide=setTimeout("hidemenu()",disappeardelay)
+}
+
+function clearhidemenu(){
+if (typeof delayhide!="undefined")
+clearTimeout(delayhide)
+}
+
+if (hidemenu_onclick=="yes")
+document.onclick=hidemenu
+
+</script>
+</head>
+
+<body link="#000000" vlink="#000080" alink="#000080" bgcolor="#FFFFFF">
+<div class="Section1">
+	<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse">
+		<tr style="height:21.1pt">
+			<td width="590" colspan="12" valign="top" style="width:442.8pt;border:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:21.1pt">
+			<p class="MsoNormal"><b><span style="font-size:7.5pt">Discipline 
+			Log&nbsp; for TEAM NAME :</span></b></td>
+		</tr>
+		<tr style="height:9.75pt">
+			<td width="103" colspan="2" valign="top" style="width:77.45pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:9.75pt">
+			<p class="MsoNormal" style="line-height: 9.75pt"><b>
+			<span style="font-size:7.5pt">Under</span></b><span style="font-size:7.5pt">:
+			</span></td>
+			<td width="156" valign="top" style="width:116.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:9.75pt">
+			<p class="MsoNormal" style="line-height: 9.75pt"><b>
+			<span style="font-size:7.5pt">Division</span></b><span style="font-size:7.5pt">:</span></td>
+			<td width="331" colspan="9" valign="top" style="width:248.4pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:9.75pt">
+			<p class="MsoNormal" style="line-height: 9.75pt">
+			<span style="font-size:7.5pt">Check One:&nbsp;&nbsp; <b>Boys</b>:______&nbsp;&nbsp;&nbsp; 
+			or&nbsp;&nbsp; <b>Girls</b>:________</span></td>
+		</tr>
+		<tr>
+			<td width="259" colspan="3" valign="top" style="width:194.4pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+			<p class="MsoNormal" align="center" style="text-align: center">&nbsp;</td>
+			<td width="331" colspan="9" valign="top" style="width: 248.4pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<h2><span style="font-size:7.5pt;font-weight:normal">Game Number, 
+			must correspond with your schedule</span></h2>
+			</td>
+		</tr>
+		<tr>
+			<td width="53" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal" align="center" style="text-align: center"><b>
+			<span style="font-size: 8.0pt">No</span></b><span style="font-size: 8.0pt">:</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal" align="center" style="text-align: center"><b>
+			<span style="font-size: 8.0pt">Player Name</span></b><span style="font-size: 8.0pt">:</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width: 32.4pt; border-left: medium none; border-/td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-rigal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width: 27.0pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width: 32.4pt; border-left: medium none; border-right: .5pt solid windowtext; border-top: medium none; border-bottom: .5pt solid windowtext; padding-left: 5.4pt; padding-right: 5.4pt; padding-top: 0cm; padding-bottom: 0cm; background: #B3B3B3">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsht:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA 
+			#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:7.6pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:7.6pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:7.6pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA 
+			#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA 
+			#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:14.35pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.35pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+-size: 8.0pt">
+			*OSA #&nbsp;:</span></b></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA"d width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.35pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:14.35pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+	 style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#&nbsp;</b>:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#&nbsp;:</b></span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.9pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></p>
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.9pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.9pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="53" rowspan="2" valign="top" style="width:39.95pt;border:solid windowtext .5pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr style="height:13.85pt">
+			<td width="206" colspan="2" valign="top" style="width:154.45pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:13.85pt">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">*<b>OSA#</b>&nbsp;:</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" valign="top" style="width:27.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" valign="top" style="width:32.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:13.85pt">
+			<p class="MsoNormal" align="center" style="text-align: center">
+			<span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+		<tr>
+			<td width="53" style="width:39.95pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="50" style="width:37.5pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="156" style="width:116.95pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="36" style="width:27.0pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+			<td width="43" style="width:32.4pt;padding:0cm 0cm 0cm 0cm">
+			<p class="MsoNormal"><span lang="FR-CA" style="font-size: 8.0pt">&nbsp;</span></td>
+		</tr>
+	</table>
+	<p class="MsoNormal" align="center" style="text-align: center">
+	<span style="font-size:7.5pt">Ottawa Icebreaker Tournament&nbsp; 12-TH Annual 
+	2006<br>
+	TEAM DISCIPLINE LOG<br>
+	(Information is required for all cells with <b>BOLD</b> headings)</span></p>
+	<p class="MsoNormal"><span style="font-size: 8.0pt">&nbsp;</span></p>
+	<p class="MsoNormal"><span style="font-size: 8.0pt">*OSA # is required only 
+	for players registered in Ontario<br>
+	Notes: &nbsp;&nbsp;&nbsp;&nbsp; 1.Game Number refers to the number of the game in which the 
+	offence occurred<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Player’s first offence should be filled in the top half 
+	of the row<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Player’s second offence should be filled in the bottom 
+	half of the row&nbsp; <br>
+	Need 2 
+	Copies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version DEC. 05</span></p>
+	<p>&nbsp;</div>
+</body>

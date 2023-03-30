@@ -1,0 +1,39 @@
+<div id="nav">
+  <ul id="navmenu">
+  <li><a href="http://ottawaicebreaker.com/index.thml">Home</a></li>
+  <li><a href="http://ottawaicebreaker.com/about_us.thml">About us</a></li>
+  <li><a href="http://ottawaicebreaker.com/information.html">Information</a></li>
+  <li><a href="http://ottawaicebreaker.com/accomodations.html">Accomodations</a></li>
+  <li><a href="http://ottawaicebreaker.com/girls.html">Girls</a>
+    <ul>
+      <li><a href="http://ottawaicebreaker.com/girls/rules.html">Rules</a>
+        <ul>
+          <li><a href="http://ottawaicebreaker.com/girls/rules/u9_u12.html">U9 - U12</a></li>
+          <li><a href="http://ottawaicebreaker.com/girls/rules/u13_u18.html/">U13 - U18</a></li>
+        </ul>
+      </li>
+      <li><a href="http://ottawaicebreaker.com/girls/register.html">Register</a></li>
+      <li><a href="http://ottawaicebreaker.com/girls/schedules.html">Schedules</a></li>
+      <li><a href="http://ottawaicebreaker.com/girls/results.html">Results</a></li>
+    </ul>
+  </li>
+  <li><a href="http://ottawaicebreaker.com/boys.html">Boys</a>
+    <ul>
+      <li><a href="http://ottawaicebreaker.com/boys/rules.html">Rules</a>
+        <ul>
+          <li><a href="http://ottawaicebreaker.com/boys/rules/u9_u12.html">U9 - U12</a></li>
+          <li><a href="http://ottawaicebreaker.com/boys/rules/u13_u18.html">U13 - U18</a></li>
+        </ul>
+      </li>
+      <li><a href="http://ottawaicebreaker.com/boys/register.html">Register</a></li>
+      <li><a href="http://ottawaicebreaker.com/boys/schedules.html">Schedules</a></li>
+      <li><a href="http://ottawaicebreaker.com/boys/results.html">Results</a></li>
+    </ul>
+  </li>
+   <li><a href="http://ottawaicebreaker.com/fields.html">Fields</a></li>    
+  <li><a href="http://ottawaicebreaker.com/awards.html">Awards</a></li> 
+    
+  <li><a href="http://ottawaicebreaker.com/contact_us.html">Contact us</a></li>         
+</ul>
+<div><h3 class="indent">Follow us on <img src="images/facebook_icon.png" /></h3></div>
+      </div>
